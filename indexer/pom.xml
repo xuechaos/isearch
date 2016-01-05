@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tudou.isearch</groupId>
+		<artifactId>isearch</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>indexer</artifactId>
+	<packaging>war</packaging>
+	<name>indexer</name>
+	<description>index processor</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.tudou.isearch</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>indexer</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>agent</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<classifier>agent</classifier>
+							<archive>
+								<addMavenDescriptor>false</addMavenDescriptor>
+							</archive>
+							<includes>
+								<include>**/agent/**</include>
+								<include>**/common/**</include>
+								<include>**/model/**</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<!-- <url>http://127.0.0.1:8080/manager/text</url>
+					<server>tomcat7</server> -->
+					<!-- <url>http://10.108.14.62:8080/manager/text</url> -->
+					<url>http://10.5.111.93:10001/manager/text</url>
+					<server>Tomcat63</server>
+					<path>/${project.build.finalName}</path>
+					<warFile>${basedir}/target/${project.build.finalName}.war</warFile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
